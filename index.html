@@ -1,0 +1,277 @@
+j<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JQUERY OUTPUT</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <style>
+    body {
+      background-image: url(pen.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    #animate {
+      background: #3ddce7;
+      height: 50px;
+      width: 100px;
+      position: absolute;
+      border-style: solid;
+      border: 5px 5px;
+      border-color: red;
+
+    }
+
+    #move {
+      height: 40px;
+      width: 40px;
+      background-color: rgb(201, 8, 104);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    textarea {
+      display: block;
+      margin: 1em 0;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <center>
+      <h1>JQUERY OUTPUT</h1><br>
+
+      <!-- 1. scroll button -->
+      <div class="col-m">
+        <div id="move"></div>
+        <button type="button" class="btn btn-warning" id="btnUp">Up</button>
+        <button type="button" class="btn btn-warning" id="btnDown">Down</button><br><br>
+        <button type="button" class="btn btn-warning" id="btnLeft">Left</button>
+        <button type="button" class="btn btn-warning" id="btnRight">Right</button><br><br>
+      </div>
+
+      <script>
+        $(document).ready(function () {
+          $('#btnRight').click(function () {
+
+            $('#move').animate({
+              left: '+=50px'
+
+            }, 'slow')
+
+          });
+          $('#btnDown').on('click', function () {
+
+            $('#move').animate({
+              top: '+=50px'
+            })
+          });
+          $('#btnUp').click(function () {
+
+            $('#move').animate({
+              top: '-=50px'
+            })
+          });
+
+          $('#btnLeft').on('click', function () {
+
+            $('#move').animate({
+              left: '-=50px'
+            })
+          });
+
+          //2.
+          $(".accept").click(function () {
+            if ($(this).prop("checked") == true) {
+              $('input[type="submit"]').prop("disabled", false);
+            }
+            else if ($(this).prop("checked") == false) {
+              $('input[type="submit"]').prop("disabled", true);
+            }
+          });
+        });
+      </script>
+
+      <!-- 2.checkbox to submit -->
+      <input type="checkbox" name="searchValues" checked /> I accept<br>
+      <input type="submit" id="submitButton" class="btn btn-primary" name="submit" disabled="disabled" /><br><br>
+
+      <script>
+        $(document).ready(function () {
+          $("input[type='checkBox']").change(function () {
+            var len = $("input[type='checkBox']:checked").length;
+            if (len == 0)
+              $("input[type='submit']").prop("disabled", true);
+            else
+              $("input[type='submit']").removeAttr("disabled");
+          });
+          $("input[type='checkBox']").trigger('change');
+        });
+      </script>
+
+
+      <!-- 4 table -->
+      <table class="table table-bordered">
+        <thead>
+          <tr class="color" style="background-color: rgb(247, 39, 136);">
+            <th scope="col"><b>First name</b></th>
+            <th scope="col"><b>Last name</b></th>
+            <th scope="col"><b>Course</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mery-an</td>
+            <td>Telez</td>
+            <td>CCT-2</td>
+          </tr>
+          <tr class="color" style="background-color: rgb(247, 39, 136);">
+            <td>Judy Ann</td>
+            <td>Arquisal</td>
+            <td>CCT-2</td>
+          </tr>
+          <tr>
+            <td>Marjory</td>
+            <td>Mondido</td>
+            <td>CCT-2</td>
+          </tr>
+          <tr class="color" style="background-color: rgb(247, 39, 136);">
+            <td>Ma. Justine</td>
+            <td>Bayutas</td>
+            <td>CCT-2</td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="alternate" style="background-color: rgb(196, 196, 12);">Change Alternate Color</button><br><br>
+
+      <script>
+        $(document).ready(function () {
+          $('#alternate').click(function () {
+            $('tr:even').css('background-color', 'pink');
+            $('tr:odd').css('background-color', 'yellow');
+
+          });
+
+        });
+
+
+      </script>
+
+      <!-- 5 add an option to a dropdown -->
+      <form>
+        <textarea id="textarea" maxlength="15" ></textarea>
+        <span id="rchars">15</span> Character(s) Remaining
+      </form>
+      <p id="display"></p>  
+      <button type="button" class="btn btn-primary" id="add">Add</button>
+      <select name="data" id="data"></select>
+      <button type="button" class="btn btn-danger" id="remove">Remove</button><br><br>
+
+
+      <script>
+        $(document).ready(function () {
+          $("#textarea").on("keyup",function(){
+
+            $('#display').text($('#textarea').val());
+
+          });
+         
+            $('#add').on('click', function () {
+              $('#data').append('<option>'+$('#textarea').val()+'</option>');
+            });
+          $('#remove').on('click', function () {
+            $('#data option:selected').remove();
+          });
+
+        });
+
+        var maxLength = 15;
+        $('textarea').keyup(function () {
+          var textlen = maxLength - $(this).val().length;
+          $('#rchars').text(textlen);
+        });
+
+      </script>
+
+
+
+      <!-- 9 add and remove-->
+      <input type="button" class="btn btn-success" id="btnAdd" value="Good Evening"></button><br><br>
+
+      <script>
+        $(document).ready(function () {
+          counter = 0
+          $('#btnAdd').on('click', function () {
+            counter++
+            if (counter % 2 != 0) {
+              console.log($(this).val());
+              $(this).val('Good Morning');
+            } else {
+              $(this).val('Good Evening');
+            }
+          });
+        });
+      </script>
+
+      <!-- 10. Input number only-->
+      Input Number:<input name="number"><br><br>
+
+      <script>
+        $(document).ready(function () {
+          $('input[name ="number"]').keyup(function (e) {
+            if (/\D/g.test(this.value)) {
+              this.value = this.value.replace(/\D/g, '');
+            }
+          });
+        });
+
+      </script>
+
+      <!-- 11.Animation -->
+      <button type="button" class="btn btn-primary" id="btn-animate">Animate</button><br><br>
+      <div id="animate">Never Give Up!</div>
+      <script>
+        $(document).ready(function () {
+
+          $("#btn-animate").click(function () {
+            $("#animate").animate({
+              width: '70%',
+              opacity: '0.4',
+              marginLeft: '0.6in',
+              fontSize: '3em',
+              borderWidth: '10px',
+              height: '90px',
+              width: '800px',
+            }, 5000);
+          });
+        });
+      </script>
+
+<br><br><br><br>
+
+<button type="button" class="btn btn-primary scroll-top" id="scrollTop">Scroll Top</button>
+
+<script>
+  $(document).ready(function(){
+    $("#scrollTop").on('click',function(){
+  $("html,body").animate({scrollTop:0},"slow");
+  return false;
+});
+
+  })
+
+</script>
+
+  </div>
+
+</body>
+
+</html>
